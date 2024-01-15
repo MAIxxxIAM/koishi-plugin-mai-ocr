@@ -1,0 +1,21 @@
+{
+  "name": "koishi-plugin-mai-ocr",
+  "description": "通过腾讯的接口ocr文字识别",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "license": "MIT",
+  "scripts": {},
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.16.4"
+  }
+}
