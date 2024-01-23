@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-mai-ocr",
-  "description": "通过腾讯的接口ocr文字识别",
-  "version": "0.0.1",
+  "description": "通过腾讯的ocr接口进行文字识别，并且提供翻译功能",
+  "version": "0.0.9",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -9,7 +9,6 @@
     "dist"
   ],
   "license": "MIT",
-  "scripts": {},
   "keywords": [
     "chatbot",
     "koishi",
