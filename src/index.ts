@@ -1,11 +1,12 @@
-import { Context, Dict, Schema } from 'koishi'
+import { Context, Dict, Schema ,Element} from 'koishi'
 import crypto, { BinaryToTextEncoding } from 'crypto'
+import {} from 'koishi-plugin-text-censor'
 import https from 'https'
 
 export const name = 'mai-ocr'
 
 export const inject ={
-  optional:['translator']
+  optional:['translator','censor']
 }
 
 export interface Config {
@@ -190,9 +191,9 @@ export function apply(ctx: Context, config: Config) {
             }
             return 0
           })
-          const characterString = characters.map(characterObject => characterObject.character).join(' ').replace(/\./g, "۔")
+          const characterString =await censorText(ctx, characters.map(characterObject => characterObject.character).join(' ').replace(/\./g, "۔"))
           if (config.是否翻译) {
-            const translation = await session.app['translator'].translate({target:config.目标语言 ,input:characterString})
+            const translation =await censorText(ctx,  await session.app['translator'].translate({target:config.目标语言 ,input:characterString}))
             if(config.使用MD){
               const c1 = mdCreate(characterString,translation,session)
               await session.bot.internal.sendMessage(session.guildId,c1)
@@ -300,4 +301,10 @@ export function apply(ctx: Context, config: Config) {
       msg_seq: Math.floor(Math.random()*500)
     }
   }
+}
+
+export async function censorText(ctx,text: string) {
+  const a:Element[]=[Element('text',{content:text})]
+  const [b]=await ctx.censor.transform(a)
+  return b.attrs.content
 }
